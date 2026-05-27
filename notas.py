@@ -27,8 +27,8 @@ class LineNumbers(tk.Canvas):
             if dline is None: break
             y = dline[1]
             linenum = str(i).split(".")[0]
-            # Dibujar el número de línea alineado a la derecha
-            self.create_text(35, y, anchor="ne", text=linenum, font=self.font, fill="#606366")
+            # Dibujar el número de línea alineado a la derecha (Color claro para modo oscuro)
+            self.create_text(35, y, anchor="ne", text=linenum, font=self.font, fill="#858585")
             i = self.textwidget.index("%s+1line" % i)
 
 class EditorNotas(tk.Tk):
@@ -42,6 +42,7 @@ class EditorNotas(tk.Tk):
         # Configuración básica de la ventana
         self.title("Editor de Notas")
         self.geometry("800x600")
+        self.configure(bg="#1e1e1e")
 
         # Variables de estado
         self.filepath = None # Almacena la ruta del archivo actual
@@ -64,12 +65,15 @@ class EditorNotas(tk.Tk):
         self.h_scroll.pack(side=tk.BOTTOM, fill=tk.X)
 
         # Canvas para números de línea
-        self.line_numbers = LineNumbers(self.main_frame, width=40, bg="#f0f0f0", highlightthickness=0)
+        self.line_numbers = LineNumbers(self.main_frame, width=40, bg="#252526", highlightthickness=0)
         self.line_numbers.pack(side=tk.LEFT, fill=tk.Y)
 
-        # Crear área de texto principal
+        # Crear área de texto principal (Modo Oscuro)
         # wrap="none" permite usar la barra de desplazamiento horizontal
         self.text_area = tk.Text(self.main_frame, wrap="none", font=self.editor_font,
+                                 bg="#1e1e1e", fg="#d4d4d4", insertbackground="white",
+                                 selectbackground="#264f78", selectforeground="white",
+                                 relief=tk.FLAT,
                                  yscrollcommand=self.sync_vscroll, xscrollcommand=self.h_scroll.set,
                                  undo=True)
         self.text_area.pack(expand=True, fill=tk.BOTH)
