@@ -49,9 +49,24 @@ class EditorNotas(tk.Tk):
         filemenu.add_command(label="Salir", command=self.al_cerrar)
         menubar.add_cascade(label="Archivo", menu=filemenu)
 
+        editmenu = tk.Menu(menubar, tearoff=0)
+        editmenu.add_command(label="Cortar", command=self.cortar)
+        editmenu.add_command(label="Copiar", command=self.copiar)
+        editmenu.add_command(label="Pegar", command=self.pegar)
+        menubar.add_cascade(label="Editar", menu=editmenu)
+
         self.config(menu=menubar)
 
    
+
+    def cortar(self):
+        self.text_area.event_generate("<<Cut>>")
+
+    def copiar(self):
+        self.text_area.event_generate("<<Copy>>")
+
+    def pegar(self):
+        self.text_area.event_generate("<<Paste>>")
 
     def abrir_archivo(self):
 
